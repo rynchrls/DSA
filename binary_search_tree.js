@@ -182,6 +182,15 @@ class BST {
     inOrder(node);
     return this.result;
   }
+  
+  getHeight(node) {
+    if (!node) return -1; // base case: empty node = height -1
+
+    const leftHeight = this.getHeight(node.left, null); 
+    const rightHeight = this.getHeight(node.right, null); 
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
 }
 
 const bst = new BST();
@@ -192,6 +201,7 @@ bst.insert(20);
 bst.insert(40);
 bst.insert(60);
 bst.insert(80);
+bst.insert(90)
 
 console.log(bst.search(bst.root, 70)); // Node with data = 60
 console.log(bst.deleteNode(bst.root, 50));
@@ -221,3 +231,5 @@ bst.LCA(bst.root, 20, 80);
 
 // New Challenge: Find the Kth Smallest Element in a BST
 console.log("The smallest element is: ", bst.kthSmallest(bst.root, 4));
+
+console.log("The longest height of the tree:", bst.getHeight(bst.root));
