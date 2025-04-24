@@ -82,42 +82,21 @@ class LinkedList {
   }
 
   removeDuplicate(head) {
-    if (!head) return;
+    let current = head;
 
-    let loop = head;
-    let nextcon = loop.next;
+    while (current !== null) {
+      let runner = current;
 
-    const deleteNode = (value) => {
-      if (!head) return;
-
-      if (head.data === value) {
-        head = head.next;
-        return;
-      }
-
-      let current = head;
-      while (current.next && current.next.data !== value) {
-        current = current.next;
-      }
-
-      if (current.next) {
-        current.next = current.next.next;
-      }
-    };
-
-    while (nextcon !== null && loop !== null) {
-      if (nextcon.data === loop.data) {
-        deleteNode(nextcon.data);
-        loop = loop.next;
-        nextcon = loop.next;
-      } else {
-        if (nextcon.next === null) {
-          loop = loop.next;
-          nextcon = loop.next;
+      while (runner.next !== null) {
+        if (runner.next.data === current.data) {
+          // Skip the duplicate
+          runner.next = runner.next.next;
         } else {
-          nextcon = nextcon.next;
+          runner = runner.next;
         }
       }
+
+      current = current.next;
     }
 
     return head;
